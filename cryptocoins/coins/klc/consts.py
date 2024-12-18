@@ -1,8 +1,8 @@
 from django.conf import settings
 
 # Currency code and ID
-KLC = 28  # Next available ID after MATIC (27)
-CODE = 'KLC'
+KLC = 'KLC'  # Currency code
+KLC_ID = 28  # Next available ID after MATIC (27)
 DECIMALS = 18
 
 # Network configuration
@@ -22,12 +22,12 @@ KLC_EXPLORER_TOKEN_URL = f'{KLC_EXPLORER_ADDR}/token/'
 
 # RPC settings
 KLC_CURRENCY = {
-    'id': KLC,
+    'id': KLC_ID,
     'name': 'KalyCoin',
-    'symbol': CODE,
-    'blockchain_currency': CODE,
+    'symbol': KLC,
+    'blockchain_currency': KLC,
     'withdrawal_fee': '0.001',
-    'blockchain': CODE,
+    'blockchain': KLC,
     'decimals': KLC_CURRENCY_DECIMALS,
     'explorer_url': KLC_EXPLORER_ADDR,
     'required_confirmations': KLC_REQUIRED_CONFIRMATIONS,
@@ -92,7 +92,7 @@ KLC_TOKENS = {
         'symbol': 'USDT',
         'address': '0x2CA775C77B922A51FcF3097F52bFFdbc0250D99A',
         'decimals': 6,
-        'blockchain_currency': CODE,
+        'blockchain_currency': KLC,
         'withdrawal_fee': '1',
         'required_confirmations': KLC_REQUIRED_CONFIRMATIONS,
     },
@@ -101,7 +101,7 @@ KLC_TOKENS = {
         'symbol': 'USDC',
         'address': '0x9cAb0c396cF0F4325913f2269a0b72BD4d46E3A9',
         'decimals': 6,
-        'blockchain_currency': CODE,
+        'blockchain_currency': KLC,
         'withdrawal_fee': '1',
         'required_confirmations': KLC_REQUIRED_CONFIRMATIONS,
     },
@@ -110,7 +110,7 @@ KLC_TOKENS = {
         'symbol': 'DAI',
         'address': '0x6E92CAC380F7A7B86f4163fad0df2F277B16Edc6',
         'decimals': 18,
-        'blockchain_currency': CODE,
+        'blockchain_currency': KLC,
         'withdrawal_fee': '1',
         'required_confirmations': KLC_REQUIRED_CONFIRMATIONS,
     },
@@ -120,7 +120,7 @@ KLC_TOKENS = {
 for token_symbol, token_data in KLC_TOKENS.items():
     token_data.update({
         'id': token_symbol,
-        'blockchain': CODE,
+        'blockchain': KLC,
         'explorer_url': KLC_EXPLORER_ADDR,
         'token_explorer_url': f"{KLC_EXPLORER_TOKEN_URL}{token_data['address']}",
         'abi': KLC20_ABI,
