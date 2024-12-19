@@ -98,7 +98,7 @@ def klc_wallet_creation_wrapper(user_id, is_new=False, **kwargs):
     return UserWallet.objects.filter(id=wallet.id)
 
 
-def krc20__wallet_creation_wrapper(user_id, currency, is_new=False, **kwargs):
+def krc20_wallet_creation_wrapper(user_id, currency, is_new=False, **kwargs):
     from core.models.cryptocoins import UserWallet
 
     wallet = get_or_create_erc20_kaly_wallet(
