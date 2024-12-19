@@ -1,7 +1,7 @@
 from admin_rest import restful_admin as api_admin
 from admin_rest.mixins import ReadOnlyMixin
 from admin_rest.restful_admin import DefaultApiAdmin
-from core.consts.currencies import BEP20_CURRENCIES, ERC20_MATIC_CURRENCIES, KLC20_CURRENCIES
+from core.consts.currencies import BEP20_CURRENCIES, ERC20_MATIC_CURRENCIES, KRC20_CURRENCIES
 from core.consts.currencies import ERC20_CURRENCIES
 from core.consts.currencies import TRC20_CURRENCIES
 from core.models import UserWallet
@@ -136,7 +136,7 @@ class MaticWithdrawalApproveApiAdmin(BaseWithdrawalApprove):
 class KLCWithdrawalApproveApiAdmin(BaseWithdrawalApprove):
     def get_queryset(self):
         return get_withdrawal_requests_to_process(
-            [KLC_CURRENCY, *KLC20_CURRENCIES],
+            [KLC_CURRENCY, *KRC20_CURRENCIES],
             blockchain_currency='KLC'
         )
 

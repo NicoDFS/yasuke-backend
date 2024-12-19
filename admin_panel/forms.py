@@ -10,7 +10,7 @@ from cryptocoins.coins.eth.ethereum import ethereum_manager
 from cryptocoins.coins.matic.polygon import matic_manager
 from cryptocoins.coins.trx.tron import tron_manager
 from cryptocoins.coins.bnb.bnb import bnb_manager
-from cryptocoins.coins.klc.manager import klc_manager
+from cryptocoins.coins.klc.klc import klc_manager
 from lib.cipher import AESCoderDecoder
 
 CryptoBitcoin = Bitcoin()

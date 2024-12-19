@@ -16,7 +16,7 @@ from cryptocoins.cold_wallet_stats.eth_stats_handler import EthStatsHandler
 from cryptocoins.cold_wallet_stats.trc20_stats_handler import UsdtTrxStatsHandler
 from cryptocoins.cold_wallet_stats.trx_stats_handler import TrxStatsHandler
 from cryptocoins.cold_wallet_stats.klc_stats_handler import KlcStatsHandler
-from cryptocoins.cold_wallet_stats.klc20_stats_handler import UsdtKlcStatsHandler
+from cryptocoins.cold_wallet_stats.krc20_stats_handler import UsdtKlcStatsHandler
 from cryptocoins.models.stats import DepositsWithdrawalsStats
 
 log = logging.getLogger(__name__)

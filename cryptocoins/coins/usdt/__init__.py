@@ -22,5 +22,10 @@ BLOCKCHAINS = {
         origin_energy_limit=10000000,
         consume_user_resource_percent=30,
     ),
+    'KLC': TokenParams(
+        symbol=CODE,
+        contract_address='0x2CA775C77B922A51FcF3097F52bFFdbc0250D99A',
+        decimal_places=6,
+    ),
 }
 USDT_CURRENCY = register_token(USDT, CODE, BLOCKCHAINS)

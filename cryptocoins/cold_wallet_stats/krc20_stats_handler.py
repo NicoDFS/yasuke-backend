@@ -1,5 +1,5 @@
 from cryptocoins.cold_wallet_stats.base_stats_handler import BaseStatsHandler
-from cryptocoins.coins.klc.manager import klc_manager
+from cryptocoins.coins.klc.klc import klc_manager
 from cryptocoins.coins.klc.consts import KLC
 from core.currency import Currency
 from cryptocoins.utils.commons import get_amount_from_base_denomination

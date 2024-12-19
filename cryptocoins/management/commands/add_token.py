@@ -7,7 +7,7 @@ from django.db.models import Max
 from web3 import Web3
 
 from core.consts.currencies import BEP20_CURRENCIES, ERC20_CURRENCIES, TRC20_CURRENCIES, CURRENCIES_LIST, \
-    CRYPTO_ADDRESS_VALIDATORS, ERC20_MATIC_CURRENCIES, KLC20_CURRENCIES
+    CRYPTO_ADDRESS_VALIDATORS, ERC20_MATIC_CURRENCIES, KRC20_CURRENCIES
 from core.currency import Currency, CurrencyNotFound
 from core.models import PairSettings, FeesAndLimits, WithdrawalFee
 from core.models.facade import CoinInfo
@@ -22,7 +22,7 @@ TOKENS_BLOCKCHAINS_MAP = {
     'BNB': BEP20_CURRENCIES,
     'TRX': TRC20_CURRENCIES,
     'MATIC': ERC20_MATIC_CURRENCIES,
-    'KLC': KLC20_CURRENCIES,
+    'KLC': KRC20_CURRENCIES,
 }
 EXPLORERS_MAP = {
     'ETH': 'https://etherscan.io/',

@@ -24,7 +24,7 @@ ERC20_CURRENCIES: Dict[Currency, TokenParams] = {}
 TRC20_CURRENCIES: Dict[Currency, TokenParams] = {}
 BEP20_CURRENCIES: Dict[Currency, TokenParams] = {}
 ERC20_MATIC_CURRENCIES: Dict[Currency, TokenParams] = {}
-KLC20_CURRENCIES: Dict[Currency, TokenParams] = {}  # KalyChain KLC20 tokens
+KRC20_CURRENCIES: Dict[Currency, TokenParams] = {}  # KalyChain KRC20 tokens
 
 ALL_TOKEN_CURRENCIES: List[Currency] = []
 

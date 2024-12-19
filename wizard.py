@@ -57,6 +57,7 @@ def main():
     IS_TRON = env('COMMON_TASKS_TRON', default=True, cast=bool)
     IS_BSC = env('COMMON_TASKS_BNB', default=True, cast=bool)
     IS_MATIC = env('COMMON_TASKS_MATIC', default=True, cast=bool)
+    IS_KLC = env('COMMON_TASKS_KLC', default=True, cast=bool)
 
     coin_list = [
         ETH,
@@ -255,6 +256,55 @@ def main():
                 },
             },
         ],
+        KLC: [
+    {
+        'model': CoinInfo,
+        'find': {'currency': KLC},
+        'attributes': {
+            'name': 'KLC',
+            'decimals': 18,
+            'index': 28,  
+            'tx_explorer': 'https://kalyscan.io/tx/', 
+            'links': {
+                "cmc": {"href": "https://coinmarketcap.com/currencies/kalycoin/", "title": "CoinMarketCap"},
+                "exp": {"href": "https://kalyscan.io/", "title": "Explorer"},
+                "official": {"href": "https://kalychain.io/", "title": "Official Website"} 
+            },
+            'logo': 'https://raw.githubusercontent.com/KalyCoinProject/tokens/refs/heads/main/assets/3888/0x0000000000000000000000000000000000000000/logo_48.png', 
+        },
+    },
+    {
+        'model': FeesAndLimits,
+        'find': {'currency': KLC},
+        'attributes': {
+            'limits_deposit_min': 0.00010000,
+            'limits_deposit_max': 10000000.00000000,
+            'limits_withdrawal_min': 0.00010000,
+            'limits_withdrawal_max': 10000000.00000000,
+            'limits_order_min': 0.01000000,
+            'limits_order_max': 100000000.00000000,
+            'limits_code_max': 10000000.00000000,
+            'limits_accumulation_min': 0.00010000,
+            'fee_deposit_address': 0,
+            'fee_deposit_code': 0,
+            'fee_withdrawal_code': 0,
+            'fee_order_limits': 0.00100000,
+            'fee_order_market': 0.00200000,
+            'fee_exchange_value': 0.00200000,
+            'limits_keeper_accumulation_balance': 100.00000000,
+            'limits_accumulation_max_gas_price': 500.00000000,
+        },
+    },
+    {
+        'model': WithdrawalFee,
+        'find': {'currency': KLC},
+        'attributes': {
+            'blockchain_currency': KLC,
+            'address_fee': 0.00100000  # Adjust the fee appropriately
+        },
+    },
+],
+
         TRX: [
             {
                 'model': CoinInfo,
@@ -412,63 +462,9 @@ def main():
                 },
             },
         ],
-        KLC: [
-            {
-                'model': CoinInfo,
-                'find': {'currency': KLC},
-                'attributes': {
-                    'name': 'KalyCoin',
-                    'decimals': 8,
-                    'index': 28,
-                    'tx_explorer': 'https://kalyscan.io/tx/',
-                    'links': {
-                        "cmc": {
-                            "href": "https://coinmarketcap.com/currencies/kalycoin/",
-                            "title": "CoinMarketCap"
-                        },
-                        "exp": {
-                            "href": "https://kalyscan.io/",
-                            "title": "Explorer"
-                        },
-                        "official": {
-                            "href": "https://kalychain.io/",
-                            "title": "kalychain.io"
-                        }
-                    }
-                },
-            },
-            {
-                'model': FeesAndLimits,
-                'find': {'currency': KLC},
-                'attributes': {
-                    'limits_deposit_min': 0.01000000,
-                    'limits_deposit_max': 1000000.00000000,
-                    'limits_withdrawal_min': 1.00000000,
-                    'limits_withdrawal_max': 100000.00000000,
-                    'limits_order_min': 0.10000000,
-                    'limits_order_max': 100000.00000000,
-                    'limits_code_max': 100000.00000000,
-                    'limits_accumulation_min': 10.00000000,
-                    'limits_keeper_accumulation_balance': 100.00000000,
-                    'limits_accumulation_max_gas_price': 300.00000000,
-                    'fee_deposit_address': 0,
-                    'fee_deposit_code': 0,
-                    'fee_withdrawal_code': 0.00100000,
-                    'fee_order_limits': 0.00100000,
-                    'fee_order_market': 0.00200000,
-                    'fee_exchange_value': 0.00100000,
-                },
-            },
-            {
-                'model': WithdrawalFee,
-                'find': {'currency': KLC},
-                'attributes': {
-                    'blockchain_currency': KLC,
-                    'address_fee': 0.00100000
-                },
-            },
-        ],
     }
+    
+         
 
     if not IS_BSC:
         coin_info[BNB].append(
@@ -517,7 +513,21 @@ def main():
                 },
             },
         )
-
+    if not IS_KLC:
+        coin_info[TRX].append(
+            {
+                'model': DisabledCoin,
+                'find': {'currency': KLC},
+                'attributes': {
+                    'disable_all': True,
+                    'disable_stack': True,
+                    'disable_pairs': True,
+                    'disable_exchange': True,
+                    'disable_withdrawals': True,
+                    'disable_topups': True,
+                },
+            },
+        )
     with atomic():
         to_write = []
 
@@ -569,7 +579,7 @@ def main():
                 BNB: 10,
                 TRX: 100_000,
                 MATIC: 10_000,
-                KLC: 100_000,
+                KLC: 10_000,
             }
 
             for currency_id, amount in topup_list.items():
@@ -586,7 +596,7 @@ def main():
         to_write.append('='*10)
 
         pairs = PAIRS_LIST + [
-            (12, 'KLC-USDT')
+            (12, 'MATIC-USDT')
         ]
 
         for pair_data in pairs:
@@ -735,7 +745,7 @@ def main():
             },
             Pair.get('KLC-USDT'): {
                 PairSettings: {
-                    'is_enabled': True,
+                    'is_enabled': IS_KLC,
                     'is_autoorders_enabled': True,
                     'price_source': PairSettings.PRICE_SOURCE_EXTERNAL,
                     'custom_price': 0,
@@ -759,7 +769,7 @@ def main():
                     'low_orders_max_match_size': 1,
                     'low_orders_spread_size': 1,
                     'low_orders_min_order_size': 1,
-                    'enabled': True,
+                    'enabled': IS_KLC,
                 }
             },
         }

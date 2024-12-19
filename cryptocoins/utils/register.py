@@ -7,7 +7,7 @@ from core.consts.currencies import (
     CRYPTO_COINS_PARAMS,
     CRYPTO_WALLET_ACCOUNT_CREATORS,
     ERC20_MATIC_CURRENCIES,
-    KLC20_CURRENCIES,
+    KRC20_CURRENCIES,
 )
 from core.consts.currencies import ALL_TOKEN_CURRENCIES
 from core.consts.currencies import BEP20_CURRENCIES
@@ -111,15 +111,15 @@ def register_token(currency_id, currency_code, blockchains: Optional[Dict[str, T
             log.debug(f'Token {currency} registered as ERC20 Polygon')
 
         if 'KLC' in blockchains:
-            from cryptocoins.coins.klc.wallet import klc20_wallet_creation_wrapper, is_valid_klc_address
+            from cryptocoins.coins.klc.wallet import krc20_wallet_creation_wrapper, is_valid_klc_address
 
-            KLC20_CURRENCIES.update({
+            KRC20_CURRENCIES.update({
                 currency: blockchains['KLC']
             })
-            wallet_creators['KLC'] = klc20_wallet_creation_wrapper
+            wallet_creators['KLC'] = krc20_wallet_creation_wrapper
             address_validators['KLC'] = is_valid_klc_address
 
-            log.debug(f'Token {currency} registered as KLC20')
+            log.debug(f'Token {currency} registered as KRC20')
 
         CRYPTO_WALLET_CREATORS[currency] = wallet_creators
         CRYPTO_ADDRESS_VALIDATORS[currency] = address_validators

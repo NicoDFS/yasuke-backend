@@ -33,6 +33,7 @@ def get_or_create_klc_wallet(user_id, is_new=False):
     """
     Make new user wallet and related objects if not exists
     """
+    # implicit logic instead of get_or_create
     from core.models.cryptocoins import UserWallet
 
     user_wallet = UserWallet.objects.filter(
@@ -58,21 +59,21 @@ def get_or_create_klc_wallet(user_id, is_new=False):
 
 
 @transaction.atomic
-def get_or_create_klc20_wallet(user_id, token_currency, is_new=False):
+def get_or_create_erc20_kaly_wallet(user_id, token_currency, is_new=False):
     from core.models.cryptocoins import UserWallet
 
-    klc20_wallet = UserWallet.objects.filter(
+    erc20_kaly_wallet = UserWallet.objects.filter(
         user_id=user_id,
         currency=token_currency,
         blockchain_currency=KLC,
     ).order_by('-id').first()
 
-    if not is_new and klc20_wallet is not None:
-        return klc20_wallet
+    if not is_new and erc20_kaly_wallet is not None:
+        return erc20_kaly_wallet
 
     address, encrypted_key = create_klc_address()
 
-    klc20_wallet = UserWallet.objects.create(
+    erc20_kaly_wallet = UserWallet.objects.create(
         user_id=user_id,
         address=address,
         private_key=encrypted_key,
@@ -80,7 +81,7 @@ def get_or_create_klc20_wallet(user_id, token_currency, is_new=False):
         blockchain_currency=KLC,
     )
 
-    return klc20_wallet
+    return erc20_kaly_wallet
 
 
 def is_valid_klc_address(address):
@@ -97,12 +98,12 @@ def klc_wallet_creation_wrapper(user_id, is_new=False, **kwargs):
     return UserWallet.objects.filter(id=wallet.id)
 
 
-def klc20_wallet_creation_wrapper(user_id, currency, is_new=False, **kwargs):
+def krc20__wallet_creation_wrapper(user_id, currency, is_new=False, **kwargs):
     from core.models.cryptocoins import UserWallet
 
-    wallet = get_or_create_klc20_wallet(
+    wallet = get_or_create_erc20_kaly_wallet(
         user_id,
         token_currency=currency,
         is_new=is_new,
     )
-    return UserWallet.objects.filter(id=wallet.id) 
+    return UserWallet.objects.filter(id=wallet.id)

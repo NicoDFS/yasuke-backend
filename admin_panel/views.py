@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect
 
 from admin_panel.forms import BtcApproveAdminForm, EthApproveAdminForm, MakeTopUpForm, TrxApproveAdminForm, \
     BnbApproveAdminForm, MaticApproveAdminForm, KLCApproveAdminForm
-from core.consts.currencies import BEP20_CURRENCIES, TRC20_CURRENCIES, ERC20_CURRENCIES, ERC20_MATIC_CURRENCIES, KLC20_CURRENCIES
+from core.consts.currencies import BEP20_CURRENCIES, TRC20_CURRENCIES, ERC20_CURRENCIES, ERC20_MATIC_CURRENCIES, KRC20_CURRENCIES
 from core.models import Transaction
 from core.models.inouts.transaction import REASON_MANUAL_TOPUP
 from core.utils.wallet_history import create_or_update_wallet_history_item_from_transaction
@@ -208,7 +208,7 @@ def admin_matic_withdrawal_request_approve(request):
 
 @staff_member_required
 def admin_klc_withdrawal_request_approve(request):
-    currencies = [KLC_CURRENCY] + list(KLC20_CURRENCIES)
+    currencies = [KLC_CURRENCY] + list(KRC20_CURRENCIES)
     withdrawal_requests = get_withdrawal_requests_to_process(currencies, blockchain_currency='KLC')
 
     if request.method == 'POST':
