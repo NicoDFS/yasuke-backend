@@ -26,13 +26,7 @@ CRYPTO_AUTO_SCHEDULE_CONF = [
         'accumulate_period': DEFAULT_CRYPTO_ACCUMULATE_PERIOD,
         'process_new_blocks_period': DEFAULT_CRYPTO_PROCESS_NEW_BLOCKS_PERIOD,
     },
-    {
-        'currency': 'KLC',
-        'enabled': env('COMMON_TASKS_KLC', default=True, cast=bool),
-        'payouts_period': False,
-        'accumulate_period': DEFAULT_CRYPTO_ACCUMULATE_PERIOD,
-        'process_new_blocks_period': DEFAULT_CRYPTO_PROCESS_NEW_BLOCKS_PERIOD,
-    },
+
 ]
 
 AMQP_USER = env('AMQP_USER', default='guest')
