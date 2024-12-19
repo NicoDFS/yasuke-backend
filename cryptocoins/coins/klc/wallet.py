@@ -59,21 +59,21 @@ def get_or_create_klc_wallet(user_id, is_new=False):
 
 
 @transaction.atomic
-def get_or_create_erc20_kaly_wallet(user_id, token_currency, is_new=False):
+def get_or_create_krc20_wallet(user_id, token_currency, is_new=False):
     from core.models.cryptocoins import UserWallet
 
-    erc20_kaly_wallet = UserWallet.objects.filter(
+    krc20_wallet = UserWallet.objects.filter(
         user_id=user_id,
         currency=token_currency,
         blockchain_currency=KLC,
     ).order_by('-id').first()
 
-    if not is_new and erc20_kaly_wallet is not None:
-        return erc20_kaly_wallet
+    if not is_new and krc20_wallet is not None:
+        return krc20_wallet
 
     address, encrypted_key = create_klc_address()
 
-    erc20_kaly_wallet = UserWallet.objects.create(
+    krc20_wallet = UserWallet.objects.create(
         user_id=user_id,
         address=address,
         private_key=encrypted_key,
@@ -81,7 +81,7 @@ def get_or_create_erc20_kaly_wallet(user_id, token_currency, is_new=False):
         blockchain_currency=KLC,
     )
 
-    return erc20_kaly_wallet
+    return krc20_wallet
 
 
 def is_valid_klc_address(address):
@@ -101,7 +101,7 @@ def klc_wallet_creation_wrapper(user_id, is_new=False, **kwargs):
 def krc20_wallet_creation_wrapper(user_id, currency, is_new=False, **kwargs):
     from core.models.cryptocoins import UserWallet
 
-    wallet = get_or_create_erc20_kaly_wallet(
+    wallet = get_or_create_krc20_wallet(
         user_id,
         token_currency=currency,
         is_new=is_new,
