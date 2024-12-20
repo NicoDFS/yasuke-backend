@@ -579,7 +579,7 @@ def main():
                 BNB: 10,
                 TRX: 100_000,
                 MATIC: 10_000,
-                KLC: 10_000,
+                KLC: 100_000,
             }
 
             for currency_id, amount in topup_list.items():
@@ -596,7 +596,7 @@ def main():
         to_write.append('='*10)
 
         pairs = PAIRS_LIST + [
-            (12, 'MATIC-USDT')
+            (13, 'MATIC-USDT')
         ]
 
         for pair_data in pairs:
